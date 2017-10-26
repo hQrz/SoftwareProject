@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/historyItem"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="0"
+    >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/battlePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/add"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/battleDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/add"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/historyDeleteBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/wp_button_small"
+            android:text="@string/delete"/>
+
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:id="@+id/battleWinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/add"/>
+
+        <TextView
+            android:id="@+id/battleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="@string/answer"/>
+
+    </TableRow>
+
+</TableLayout>

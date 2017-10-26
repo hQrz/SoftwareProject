@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/admin_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/baseBackground"
+    android:weightSum="7">
+
+    <ListView
+        android:id="@+id/infoList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:scrollbars="vertical">
+
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/bottonLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/admin_btBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="@string/back" />
+
+        <Button
+            android:id="@+id/admin_btAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="@string/add" />
+
+        <RadioGroup
+            android:id="@+id/admin_menuGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end|bottom"
+            android:paddingLeft="10dp"
+            >
+
+            <RadioButton
+                android:id="@+id/admin_cardMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cardMenu" />
+
+            <RadioButton
+                android:id="@+id/admin_historyMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/historyMenu" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+</LinearLayout>

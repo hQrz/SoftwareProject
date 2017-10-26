@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.thinker.cardsmanager.AddCardActivity">
+
+    <LinearLayout
+        android:layout_width="351dp"
+        android:layout_height="487dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <EditText
+            android:id="@+id/pt_cn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="dog"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/pt_cpn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="dog.png"
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="98dp" />
+
+        <EditText
+            android:id="@+id/pt_card_hp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="100"
+            tools:layout_editor_absoluteX="153dp"
+            tools:layout_editor_absoluteY="155dp" />
+
+        <EditText
+            android:id="@+id/pt_card_attack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="34"
+            tools:layout_editor_absoluteX="153dp"
+            tools:layout_editor_absoluteY="234dp" />
+
+        <EditText
+            android:id="@+id/pt_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="2"
+            tools:layout_editor_absoluteX="153dp"
+            tools:layout_editor_absoluteY="304dp" />
+
+        <Button
+            android:id="@+id/bt_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="add"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="400dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
