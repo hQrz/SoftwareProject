@@ -12,8 +12,11 @@ import android.widget.Toast;
 
 import com.example.thinker.cardsmanager.util.DBAdapter;
 
+import java.io.IOException;
+
 public class AddCardActivity extends AppCompatActivity {
     private Button bt_add;
+    private Button bt_clear;
     private EditText cards_name;
     private EditText cards_pic_name;
     private EditText cards_hp;
@@ -50,11 +53,30 @@ public class AddCardActivity extends AppCompatActivity {
                     String info=dataset.getString(dataset.getColumnIndex("CardID"));
                     info+=";";
                     info+=dataset.getString(dataset.getColumnIndex("CardName"));
+                    info+=";"+dataset.getCount();
                     Toast.makeText(getApplicationContext(),info,
                             Toast.LENGTH_SHORT).show();
                     //db.close();
                 }
                 catch (Exception e){
+                    Toast.makeText(getApplicationContext(),e.toString(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //删除全部信息
+        bt_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    SQLiteDatabase db = dbAdapter.getWritableDatabase();
+                    db.execSQL("delete from Cards");
+                    //db.delete(DBAdapter.TABLE_NAME, null, null);
+                    Cursor dataset = db.query(DBAdapter.TABLE_NAME, null, null, null, null, null, null);
+                    dataset.moveToFirst();
+                    Toast.makeText(getApplicationContext(), dataset.getCount(),
+                            Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
                     Toast.makeText(getApplicationContext(),e.toString(),
                             Toast.LENGTH_SHORT).show();
                 }
@@ -68,5 +90,6 @@ public class AddCardActivity extends AppCompatActivity {
         cards_hp=(EditText)this.findViewById(R.id.pt_card_hp);
         cards_attack=(EditText)this.findViewById(R.id.pt_card_attack);
         cards_type=(EditText)this.findViewById(R.id.pt_type);
+        bt_clear=(Button)this.findViewById(R.id.bt_clear);
     }
 }

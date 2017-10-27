@@ -1,4 +1,4 @@
-package com.example.thinker.cardsmanager.util;
+package com.zsh.ricky.zsh.util;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -60,3 +60,4 @@ public class DBAdapter extends SQLiteOpenHelper {
         onCreate(db);
     }
 }
+

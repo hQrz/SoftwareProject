@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_addCard"
+    android:scrollbars="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.thinker.cardsmanager.AddCardActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="351dp"
-        android:layout_height="487dp"
+        android:id="@+id/inner_addCard"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ac_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:contentDescription="@string/cardImage"
+            android:scaleType="centerInside"
+            android:src="@drawable/click_image"
+            />
 
         <EditText
-            android:id="@+id/pt_cn"
+            android:id="@+id/ac_etCardName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="dog"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/cardName"
+            android:inputType="text"
+            android:gravity="center"
+            />
 
         <EditText
-            android:id="@+id/pt_cpn"
+            android:id="@+id/ac_etCardHp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="dog.png"
-            tools:layout_editor_absoluteX="143dp"
-            tools:layout_editor_absoluteY="98dp" />
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/cardHP"
+            android:inputType="number"
+            android:gravity="center"/>
 
         <EditText
-            android:id="@+id/pt_card_hp"
+            android:id="@+id/ac_etCardAttack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="100"
-            tools:layout_editor_absoluteX="153dp"
-            tools:layout_editor_absoluteY="155dp" />
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/cardAttack"
+            android:inputType="number"
+            android:gravity="center"/>
 
-        <EditText
-            android:id="@+id/pt_card_attack"
+        <Spinner
+            android:id="@+id/ac_spCardType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="34"
-            tools:layout_editor_absoluteX="153dp"
-            tools:layout_editor_absoluteY="234dp" />
+            android:entries="@array/cardType"
+            android:prompt="@string/cardType"/>
 
-        <EditText
-            android:id="@+id/pt_type"
+        <LinearLayout
+            android:id="@+id/ac_LLButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="2"
-            tools:layout_editor_absoluteX="153dp"
-            tools:layout_editor_absoluteY="304dp" />
+            android:orientation="horizontal"
+            style="?android:attr/buttonBarButtonStyle"
+            android:gravity="end">
 
-        <Button
-            android:id="@+id/bt_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="add"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="400dp" />
+            <Button
+                android:id="@+id/ac_btAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/wp_button_small"
+                android:text="@string/add"/>
+
+            <Button
+                android:id="@+id/ac_btBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/wp_button_small"
+                android:text="@string/back"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

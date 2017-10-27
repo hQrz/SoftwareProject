@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.content.*;
 import android.widget.Toast;
 
+import com.example.thinker.cardsmanager.R;
 import com.example.thinker.cardsmanager.util.DBAdapter;
 /**
  * Created by Thinker on 2017/10/25.

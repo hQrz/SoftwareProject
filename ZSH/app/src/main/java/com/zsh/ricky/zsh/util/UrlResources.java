@@ -5,5 +5,5 @@ package com.zsh.ricky.zsh.util;
  */
 
 public class UrlResources {
-    public static final String CARDS_COUNT="cards_count";
+    public static final String CARDS_LIST="cards_list";
 }

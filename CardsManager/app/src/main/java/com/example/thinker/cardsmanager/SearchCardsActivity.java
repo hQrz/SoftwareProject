@@ -17,10 +17,12 @@ import com.example.thinker.cardsmanager.util.DBAdapter;
 
 public class SearchCardsActivity extends AppCompatActivity{
     private DBAdapter dbAdapter;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_cards);
         //获取卡牌数据
+        dbAdapter=new DBAdapter(this,"CardsGame.db",null,1);
         SQLiteDatabase db= dbAdapter.getWritableDatabase();
         Cursor dataset=db.query("Cards",null,null,null,null,null,null);
         //显示到控件上

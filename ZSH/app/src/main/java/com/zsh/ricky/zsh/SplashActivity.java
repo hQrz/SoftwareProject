@@ -1,9 +1,12 @@
 package com.zsh.ricky.zsh;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -26,16 +29,24 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import com.zsh.ricky.zsh.util.OkHttpHelper;
 import com.zsh.ricky.zsh.util.UrlResources;
+import com.zsh.ricky.zsh.util.DBAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class SplashActivity extends AppCompatActivity {
 
     private LinearLayout splash_layout = null;
     private TextView version_view = null;
+    private DBAdapter dbAdapter=new DBAdapter(this,DBAdapter.DB_NAME,null,1);;
+    private ContentValues cValues=new ContentValues();
+    private String pic_list=new String();
 
-    public void updateCards(){//get卡牌数，生成需下载的卡牌id字串，‘;’分割，分别post信息与图片
+    public void updateCards(){//get卡牌id列表，对比本地信息生成需下载的卡牌id字串，‘;’分割，分别post信息与图片
         OkHttpHelper helper=new OkHttpHelper();
-        Call get_cards_count=helper.getRequest(UrlResources.CARDS_COUNT);
+        Call get_cards_count=helper.getRequest(UrlResources.CARDS_LIST);
+
         get_cards_count.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -51,10 +62,32 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                String cards_count=response.body().toString();
+                try {
+                    //获取服务器卡牌信息
+                    JSONArray cards = new JSONArray(response.body().string());
+                    //写入本地卡牌信息
+                    SQLiteDatabase db= dbAdapter.getWritableDatabase();
+                    db.execSQL("DELETE FROM "+DBAdapter.TABLE_NAME);//删除本地卡牌信息
+                    for (int i=0;i<cards.length();i++){
+                        JSONObject row=(JSONObject) cards.get(i);
+                        cValues.put(DBAdapter.COL_ID,row.getString(DBAdapter.COL_ID));
+                        cValues.put(DBAdapter.COL_NAME,row.getString(DBAdapter.COL_NAME));
+                        cValues.put(DBAdapter.COL_PIC_NAME,row.getString(DBAdapter.COL_PIC_NAME));
 
+                        cValues.put(DBAdapter.COL_HP,row.getString(DBAdapter.COL_HP));
+                        cValues.put(DBAdapter.COL_ATTACK,row.getString(DBAdapter.COL_ATTACK));
+                        cValues.put(DBAdapter.COL_TYPE,row.getString(DBAdapter.COL_TYPE));
+                        db.insert(DBAdapter.TABLE_NAME,null,cValues);
+                        cValues.clear();
+                    }
+                    //校验本地图片
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
         Map<String,String> map=new HashMap<>();
         String str=new String();
 
