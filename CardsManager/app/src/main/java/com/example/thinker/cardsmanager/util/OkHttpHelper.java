@@ -1,4 +1,4 @@
-package com.zsh.ricky.zsh.util;
+package com.example.thinker.cardsmanager.util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import java.util.concurrent.FutureTask;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -128,11 +130,9 @@ public class OkHttpHelper {
         // 第一步：首先保存图片
         //将Bitmap保存图片到指定的路径"/sdcard/"+"BITMAP_SAVE_DIR"+"/"下
         File appDir = new File(Environment.getExternalStorageDirectory(), BITMAP_SAVE_FOLDER);
-
         if (!appDir.exists()) {
             appDir.mkdir();
         }
-
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -157,4 +157,25 @@ public class OkHttpHelper {
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file)));
         //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
     }
+    public Call imageUpLoad(final String url,String localPath) {
+        MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+        OkHttpClient client = new OkHttpClient();
+
+
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        File f = new File(localPath);
+        builder.addFormDataPart("file", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
+
+        final MultipartBody requestBody = builder.build();
+        //构建请求
+        final Request request = new Request.Builder()
+                .url(BASE_URL + url)
+                .post(requestBody)
+                .build();
+
+        this.call = client.newCall(request);
+        return this.call;
+    }
+
 }

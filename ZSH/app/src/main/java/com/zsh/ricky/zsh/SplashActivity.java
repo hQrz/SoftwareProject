@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -19,8 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,11 +46,11 @@ public class SplashActivity extends AppCompatActivity {
     private DBAdapter dbAdapter=new DBAdapter(this,DBAdapter.DB_NAME,null,1);;
     private ContentValues cValues=new ContentValues();
     private String pic_list=new String();
+    private List<String> pic_download_list=new ArrayList<>();
 
-    public void updateCards(){//get卡牌id列表，对比本地信息生成需下载的卡牌id字串，‘;’分割，分别post信息与图片
-        OkHttpHelper helper=new OkHttpHelper();
+    public void updateCards(){//get卡牌id列表，对比本地信息生成需下载的卡牌列表，开辟新线程逐个下载到本地SD卡中
+        final OkHttpHelper helper=new OkHttpHelper();
         Call get_cards_count=helper.getRequest(UrlResources.CARDS_LIST);
-
         get_cards_count.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -73,26 +77,50 @@ public class SplashActivity extends AppCompatActivity {
                         cValues.put(DBAdapter.COL_ID,row.getString(DBAdapter.COL_ID));
                         cValues.put(DBAdapter.COL_NAME,row.getString(DBAdapter.COL_NAME));
                         cValues.put(DBAdapter.COL_PIC_NAME,row.getString(DBAdapter.COL_PIC_NAME));
-
+                        if (isSave(helper.BITMAP_SAVE_PATH,cValues.get(DBAdapter.COL_PIC_NAME).toString())){
+                            //图片未保存，加入下载列表
+                            pic_download_list.add(cValues.get(DBAdapter.COL_PIC_NAME).toString());
+                        }
                         cValues.put(DBAdapter.COL_HP,row.getString(DBAdapter.COL_HP));
                         cValues.put(DBAdapter.COL_ATTACK,row.getString(DBAdapter.COL_ATTACK));
                         cValues.put(DBAdapter.COL_TYPE,row.getString(DBAdapter.COL_TYPE));
                         db.insert(DBAdapter.TABLE_NAME,null,cValues);
                         cValues.clear();
                     }
-                    //校验本地图片
+
+                    //下载图片
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                for (Iterator<String> it = pic_download_list.iterator(); it.hasNext(); it.next()) {
+                                    Bitmap bitmap = helper.getPic(it.toString());//下载
+                                    helper.onSaveBitmap(bitmap, SplashActivity.this, it.toString());//保存到本地
+                                }
+                            }catch (Exception e){
+                                Toast.makeText(getApplicationContext(),e.toString(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }).start();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
 
-        Map<String,String> map=new HashMap<>();
-        String str=new String();
-
-        Call apply_download_list=helper.postRequest("",map);
-
+    public boolean isSave(String path,String fileName){
+        try {
+            File f=new File(path,fileName);
+            if(!f.exists()) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
