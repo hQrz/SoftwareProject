@@ -131,7 +131,7 @@ public class OkHttpHelper {
         //将Bitmap保存图片到指定的路径"/sdcard/"+"BITMAP_SAVE_DIR"+"/"下
         File appDir = new File(Environment.getExternalStorageDirectory(), BITMAP_SAVE_FOLDER);
         if (!appDir.exists()) {
-            appDir.mkdir();
+            appDir.mkdirs();
         }
         File file = new File(appDir, fileName);
         try {
