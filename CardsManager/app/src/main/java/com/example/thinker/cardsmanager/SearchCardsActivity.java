@@ -27,5 +27,9 @@ public class SearchCardsActivity extends AppCompatActivity{
         Cursor dataset=db.query("Cards",null,null,null,null,null,null);
         //显示到控件上
         //......
+
+    }
+    public void initWeightItems(){
+
     }
 }

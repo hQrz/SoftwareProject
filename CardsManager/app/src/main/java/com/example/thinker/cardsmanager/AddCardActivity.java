@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +53,10 @@ public class AddCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
+
+        ActivityCompat.requestPermissions(AddCardActivity.this, new String[]{
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+
         initWeightItems();
         //ImageView点击事件，获取一个图片，并为 card_pic_path 赋值
         cards_pic_name.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +177,7 @@ public class AddCardActivity extends AppCompatActivity {
             ContentResolver cr = this.getContentResolver();
             try {
                 Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+
                 ImageView imageView = (ImageView) findViewById(R.id.ac_image);
                 /* 将Bitmap设定到ImageView */
                 imageView.setImageBitmap(bitmap);

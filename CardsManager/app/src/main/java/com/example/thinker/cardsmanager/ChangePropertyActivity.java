@@ -17,15 +17,22 @@ import com.example.thinker.cardsmanager.util.DBAdapter;
  */
 
 public class ChangePropertyActivity extends AppCompatActivity{
-    public void initWeightTableList(){
 
-    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_property);
         //初始化控件，显示卡牌列表
-        initWeightTableList();
+        initWeightItems();
+        initTableList();
+
 
 
     }
+    public void initTableList(){
+
+    }
+    public void initWeightItems(){
+
+    }
+
 }
